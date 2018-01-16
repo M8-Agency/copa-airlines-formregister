@@ -3,67 +3,45 @@ import PropTypes from 'prop-types';
 import Validator from 'validatorjs'
 import FormRegisterUI from './FormRegisterUI'
 import axios from 'axios'
-import Destinations_es from "./data/copa-airlines-participating_es"
 
 class FormRegister extends Component{
     
     constructor(props){
         super(props)
         this.data = {}
-
         this.state = {
-            countries : [{
-                    'label':{
-                    'es':'Estados Unidos',
-                    },
-                    'value':'US'
-                },{
-                    'label':{
-                    'es':'Panama',
-                    },
-                    'value':'PA'
-                },{
-                    'label':{
-                        'es':'Mexico',
-                    },
-                    'value':'MX'
-                },{
-                    'label':{
-                        'es':'Colombia',
-                    },
-                    'value':'CO'
-            }],
             cities : [],
             error : false
         }
     }
 
-    handleFilterCities = (countryCode) => {
-        const cities = Destinations_es.filter(function(city) {
-            return city.countryCode === countryCode;
-        });   
-        console.log('cities', cities)
+    handleFilterCities = (selectedIndex) => {
         this.setState({
-            cities : cities
+            cities : this.props.countries[selectedIndex-1].cities
         })
     }
     
     handleValidateForm = (event) => {
         event.preventDefault()
         
-        const formData = new FormData(event.target);
+        //const formData = new FormData(event.target);
         
         const data = {
-            email : formData.get('email'),
-            email_confirmation : formData.get('email_confirmation'),
-            fname : formData.get('fname'),
-            lname : formData.get('lname'),
-            birthday : new Date(formData.get('year'), (formData.get('month') - 1), formData.get('day')),
-            phone : formData.get('phone'),
-            country : formData.get('country'),
-            city : formData.get('city'),
-            terms : formData.get('terms'),
-            referer : formData.get('referer'),
+            email : document.getElementsByName('FormRegisterUI__email')[0].value,
+            email_confirmation : document.getElementsByName('FormRegisterUI__email_confirmation')[0].value,
+            fname : document.getElementsByName('FormRegisterUI__fname')[0].value,
+            lname : document.getElementsByName('FormRegisterUI__lname')[0].value,
+            birthday : new Date(
+                document.getElementsByName('FormRegisterUI__year')[0].value, 
+                (document.getElementsByName('FormRegisterUI__month')[0].value - 1), 
+                document.getElementsByName('FormRegisterUI__day')[0].value
+            ),
+            phone : document.getElementsByName('FormRegisterUI__phone')[0].value,
+            country : document.getElementsByName('FormRegisterUI__country')[0].value,
+            city : document.getElementsByName('FormRegisterUI__city')[0].value,
+            terms : document.getElementsByName('FormRegisterUI__terms')[0].checked,
+            referer : this.props.refererId,
+            refererSource : this.props.refererSource
         };
 
         const rules = {
@@ -124,6 +102,7 @@ class FormRegister extends Component{
     }
 
     register = (data) => {
+        this.props.working(true)
         const formData = new FormData();
 
         for(let field in data){
@@ -135,7 +114,6 @@ class FormRegister extends Component{
                     formData.append(field, data[field]);
             }
         }
-        
 
         return axios.post(this.props.endPoint, formData)
         .then(this.registerSuccess)
@@ -143,23 +121,34 @@ class FormRegister extends Component{
     }
 
     registerSuccess = (response) => {
-        this.props.registerSuccess(response.data)
+        this.props.working(false)
+        if(response.data.status === 'ok'){
+            this.props.registerSuccess(response.data)
+        }else{
+            this.setState({
+                error : response.data.description
+            })
+        }
+
     }
 
     registerError = (error) => {
         //Envio al error con los datos que se enviaron al endpoint
+        this.props.working(false)
         this.props.registerError(error, this.data)
     }    
 
     render = () => {
         return (
             <FormRegisterUI 
-                countries={ this.state.countries } 
+                countries={ this.props.countries } 
                 cities={ this.state.cities } 
                 validateForm = { this.handleValidateForm }  
                 filterCities = { this.handleFilterCities }
-                copy={ this.props.copy['es']}
+                copy={ this.props.copy}
                 email = { this.props.email }
+                refererId = { this.props.refererId }
+                refererSource = { this.props.refererSource }
                 error = { this.state.error }
             /> 
         )
@@ -167,52 +156,71 @@ class FormRegister extends Component{
 }
 
 const copy = {
-    es : {
-        'un_solo_paso' : 'You’re only one step away!',
-        'completa' : 'Enter your personal information to participate.',
-        'email' : 'Email',
-        'confirm' : 'Confirm Email',
-        'nombre' : 'Name',
-        'apellido' : 'Last Name',
-        'dia' : 'Day',
-        'mes' : 'Month',
-        'ano' : 'Year',
-        'birthtext' : '(Date of Birth)',
-        'telefono' : 'Phone Number',
-        'pais' : 'Country',
-        'ciudad' : 'City',
-        'terminos' : 'I confirm I am 18 years old or older.\nI have read and accepted the Terms & Conditions.',
-        'siguiente' : 'NEXT',
-    },
-    pt : {
-        'un_solo_paso' : 'You’re only one step away!',
-        'completa' : 'Enter your personal information to participate.',
-        'email' : 'Email',
-        'confirm' : 'Confirm Email',
-        'nombre' : 'Name',
-        'apellido' : 'Last Name',
-        'dia' : 'Day',
-        'mes' : 'Month',
-        'ano' : 'Year',
-        'birthtext' : '(Date of Birth)',
-        'telefono' : 'Phone Number',
-        'pais' : 'Country',
-        'ciudad' : 'City',
-        'terminos' : 'I confirm I am 18 years old or older.\nI have read and accepted the Terms & Conditions.',
-        'siguiente' : 'NEXT',
-    }
+    'un_solo_paso' : 'You’re only one step away!',
+    'completa' : 'Enter your personal information to participate.',
+    'email' : 'Email',
+    'confirm' : 'Confirm Email',
+    'nombre' : 'Name',
+    'apellido' : 'Last Name',
+    'dia' : 'Day',
+    'mes' : 'Month',
+    'ano' : 'Year',
+    'birthtext' : '(Date of Birth)',
+    'telefono' : 'Phone Number',
+    'pais' : 'Country',
+    'ciudad' : 'City',
+    'terminos' : 'I confirm I am 18 years old or older.\nI have read and accepted the Terms & Conditions.',
+    'siguiente' : 'NEXT'
 }
+
+const countries = [
+    {'label':'Argentina','value':'AR','cities' : [
+        {'label' : 'Buenos Aires', value : 'EZE'},
+        {'label' : 'Córdoba', value : 'COR'},
+        {'label' : 'Rosario', value : 'ROS'},
+        {'label' : 'Mendoza', value : 'MDZ'},
+    ]},
+    {'label':'Brasil','value':'BR','cities' : [
+        {'label' : 'Manaus', value : 'MAO'},
+        {'label' : 'Porto Alegre', value : 'POA'},
+        {'label' : 'Recife', value : 'REC'},
+        {'label' : 'Río de Janeiro', value : 'GIG'},
+        {'label' : 'Sao Paulo', value : 'GRU'},
+        {'label' : 'Belo Horizonte', value : 'CNF'},
+        {'label' : 'Brasilia', value : 'BSB'},
+    ]},
+    {'label':'Colombia','value':'CO','cities' : [
+        {'label' : 'Barranquilla', value : 'BAQ'},
+        {'label' : 'Bogotá', value : 'BOG'},
+        {'label' : 'Bucaramanga', value : 'BGA'},
+        {'label' : 'Cali', value : 'CLO'},
+        {'label' : 'Cartagena', value : 'CTG'},
+        {'label' : 'Medellín', value : 'MDE'},
+        {'label' : 'Pereira', value : 'PEI'},
+        {'label' : 'San Andrés Isla', value : 'ADZ'},
+    ]},
+    {'label':'Panamá','value':'PA','cities' : [
+        {'label' : 'David', value : 'DAV'},
+        {'label' : 'Panamá', value : 'PTY'},
+    ]}                
+]
 
 FormRegister.propTypes = {
     copy : PropTypes.object,
+    countries : PropTypes.array,
     email : PropTypes.string,
     endPoint : PropTypes.string.isRequired,
     registerSuccess : PropTypes.func.isRequired,
-    registerError : PropTypes.func.isRequired,    
+    registerError : PropTypes.func.isRequired,
+    refererId : PropTypes.string,
+    refererSource : PropTypes.string,
+    working : PropTypes.func.isRequired,
 };
 
 FormRegister.defaultProps = {
-    copy
+    copy,
+    countries,
+    working : false
 };
 
 export default FormRegister;
