@@ -21,25 +21,27 @@ class FormRegister extends Component{
         })
     }
     
+    setInputEmail = (element) => {
+        this.inputEmail = element
+    }
+
     handleValidateForm = (event) => {
         event.preventDefault()
         
-        //const formData = new FormData(event.target);
-        
         const data = {
-            email : document.getElementsByName('FormRegisterUI__email')[0].value,
-            email_confirmation : document.getElementsByName('FormRegisterUI__email_confirmation')[0].value,
-            fname : document.getElementsByName('FormRegisterUI__fname')[0].value,
-            lname : document.getElementsByName('FormRegisterUI__lname')[0].value,
+            email : this.inputEmail.value,
+            email_confirmation : this.refs.inputEmailConfirmation.value,
+            fname : this.refs.inputFname.value,
+            lname : this.refs.inputLname.value,
             birthday : new Date(
-                document.getElementsByName('FormRegisterUI__year')[0].value, 
-                (document.getElementsByName('FormRegisterUI__month')[0].value - 1), 
-                document.getElementsByName('FormRegisterUI__day')[0].value
+                this.refs.selectYear.value, 
+                (this.refs.selectMonth.value - 1), 
+                this.refs.selectDay.value
             ),
-            phone : document.getElementsByName('FormRegisterUI__phone')[0].value,
-            country : document.getElementsByName('FormRegisterUI__country')[0].value,
-            city : document.getElementsByName('FormRegisterUI__city')[0].value,
-            terms : document.getElementsByName('FormRegisterUI__terms')[0].checked,
+            phone : this.refs.inputPhone.value,
+            country : this.refs.selectCountry.value,
+            city : this.refs.selectCity.value,
+            terms : this.refs.checkTerms.checked,
             referer : this.props.refererId,
             refererSource : this.props.refererSource
         };

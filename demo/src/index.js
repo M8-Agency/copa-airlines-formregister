@@ -13,6 +13,10 @@ class Demo extends Component {
     console.log(error, data)
   }
 
+  handleWorking = (status) => {
+
+  }
+
   render() {
     return <div>
       <h1>copa-airlines-formregister Demo</h1>
@@ -20,6 +24,7 @@ class Demo extends Component {
       endPoint={`/user/register`}
       registerSuccess = { this.handleRegisterSuccess }
       registerError = { this.handleRegisterError }
+      working = { this.handleWorking } 
       />
     </div>
   }
