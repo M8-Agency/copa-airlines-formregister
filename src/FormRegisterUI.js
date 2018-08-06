@@ -23,51 +23,46 @@ const FormRegisterUI = (props) => {
   return (
     <div className='FormRegister'>
       <form onSubmit={props.validateForm} noValidate>
-        <input type="hidden" name="FormRegisterUI__token" value="" />
-        <input type="hidden" name="FormRegisterUI__referer" value={props.refererId} />
-        <input type="hidden" name="FormRegisterUI__refererSource" value={props.refererSource} />
         <input
           className="FormRegister__email"
-          ref = { props.setInputEmail }
+          ref={props.handlers.handlerEmail}
           type="email"
           placeholder={props.copy.email}
-          name="FormRegisterUI__email"
           defaultValue={props.email}
         />
         <input
           className="FormRegister__email_conf"
+          ref={props.handlers.handlerEmailConfirmation}
           type="email"
           placeholder={props.copy.confirm}
-          name="FormRegisterUI__email_confirmation"
           defaultValue={props.email}
         />
         <input
           className="FormRegister__fname"
+          ref={props.handlers.handlerFirstname}
           type="text"
           placeholder={props.copy.nombre}
-          name="FormRegisterUI__fname"
         />
         <input
           className="FormRegister__lname"
+          ref={props.handlers.handlerLastname}
           type="text"
           placeholder={props.copy.apellido}
-          name="FormRegisterUI__lname"
-          id="fieldLastname"
         />
         <div className="FormRegister__fnacimiento">
-          <select name="FormRegisterUI__day">
+          <select name="FormRegisterUI__day" ref={props.handlers.handlerDay}>
             <option value="-" selected>
               {props.copy.dia}
             </option>
             {getNumbers(1, 31)}
           </select>
-          <select name="FormRegisterUI__month">
+          <select name="FormRegisterUI__month" ref={props.handlers.handlerMonth}>
             <option value="-" selected>
               {props.copy.mes}
             </option>
             {getNumbers(1, 12)}
           </select>
-          <select name="FormRegisterUI__year">
+          <select name="FormRegisterUI__year" ref={props.handlers.handlerYear}>
             <option value="-" selected>
               {props.copy.ano}
             </option>
@@ -78,14 +73,17 @@ const FormRegisterUI = (props) => {
           </div>
         </div>
         <input
-          className="FormRegister__tel"
+          className="FormRegister__phone"
+          ref={props.handlers.handlerPhone}
           type="text"
           placeholder={props.copy.telefono}
-          name="FormRegisterUI__phone"
         />
-        <div className="FormRegister__paisciudad">
-          <select 
-          onChange={(event) => { props.filterCities(event.target.selectedIndex) }}>
+        <div>
+          <select
+            className="FormRegister__country"          
+            onChange={(event) => { props.filterCities(event.target.selectedIndex) }}
+            ref={props.handlers.handlerCountry}
+          >
             <option value="" selected>
               {props.copy.pais}
             </option>
@@ -94,8 +92,9 @@ const FormRegisterUI = (props) => {
             })}
           </select>
 
-          <select 
-          id="fieldCity"
+          <select
+            className="FormRegister__city"          
+            ref={props.handlers.handlerCity}
           >
             <option value="" selected>
               {props.copy.ciudad}
@@ -106,10 +105,16 @@ const FormRegisterUI = (props) => {
           </select>
 
         </div>
-        <div className="FormRegister__acepto">
-          <input type="checkbox" name="FormRegisterUI__terms" />
+        <div className="FormRegister__terms">
+          <input type="checkbox" name="FormRegisterUI__terms" ref={props.handlers.handlerTerms} />
           <span>
             {props.copy.terminos}
+          </span>
+        </div>
+        <div className="FormRegister__news">        
+          <input type="checkbox" name="FormRegisterUI__terms" ref={props.handlers.handlerNews} />
+          <span>
+          {props.copy.news}
           </span>
         </div>
         {(props.error) && <p className="FormLogin__message_golden">{props.error}</p>}
