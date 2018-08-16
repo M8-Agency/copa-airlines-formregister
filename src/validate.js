@@ -66,7 +66,7 @@ export default function (formData, copy) {
             data.birthday = data.birthday.toISOString().split('T')[0]
 
             responseObject = {
-                validate : true,
+                valid : true,
                 message : '',
                 data
             }
