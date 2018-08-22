@@ -80,7 +80,7 @@ const FormRegisterUI = (props) => {
         />
         <div>
           <select
-            className="FormRegister__country"          
+            className="FormRegister__country"
             onChange={(event) => { props.filterCities(event.target.selectedIndex) }}
             ref={props.handlers.handlerCountry}
           >
@@ -93,7 +93,7 @@ const FormRegisterUI = (props) => {
           </select>
 
           <select
-            className="FormRegister__city"          
+            className="FormRegister__city"
             ref={props.handlers.handlerCity}
           >
             <option value="" selected>
@@ -106,19 +106,15 @@ const FormRegisterUI = (props) => {
 
         </div>
         <div className="FormRegister__terms">
-          <input type="checkbox" name="FormRegisterUI__terms" ref={props.handlers.handlerTerms} />
-          <span>
-            {props.copy.terminos}
-          </span>
+          <input type="checkbox" ref={props.handlers.handlerTerms} />
+          <p>{props.copy.terminos}</p>
         </div>
-        <div className="FormRegister__news">        
-          <input type="checkbox" name="FormRegisterUI__terms" ref={props.handlers.handlerNews} />
-          <span>
-          {props.copy.news}
-          </span>
+        <div className="FormRegister__news">
+          <input type="checkbox" ref={props.handlers.handlerNews} />
+          <p>{props.copy.news}</p>
         </div>
-        {(props.error) && <p className="FormLogin__message_golden">{props.error}</p>}
-        <input className="Form__cta" type="submit" value={props.copy.siguiente} />
+        {(props.error) && <p className="FormRegister__error">{props.error}</p>}
+        <input className="FormRegister__cta" type="submit" value={props.copy.siguiente} />
       </form>
     </div>
   )
