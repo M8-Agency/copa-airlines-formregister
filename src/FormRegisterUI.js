@@ -21,35 +21,43 @@ const getNumbers = (init, end) => {
 const FormRegisterUI = (props) => {
 
   return (
-    <div className='FormRegister'>
+    <div className='row FormRegister'>
       <form onSubmit={props.validateForm} noValidate>
-        <input
-          className="FormRegister__email"
-          ref={props.handlers.handlerEmail}
-          type="email"
-          placeholder={props.copy.email}
-          defaultValue={props.email}
-        />
-        <input
-          className="FormRegister__email_conf"
-          ref={props.handlers.handlerEmailConfirmation}
-          type="email"
-          placeholder={props.copy.confirm}
-          defaultValue={props.email}
-        />
-        <input
-          className="FormRegister__fname"
-          ref={props.handlers.handlerFirstname}
-          type="text"
-          placeholder={props.copy.nombre}
-        />
-        <input
-          className="FormRegister__lname"
-          ref={props.handlers.handlerLastname}
-          type="text"
-          placeholder={props.copy.apellido}
-        />
-        <div className="FormRegister__fnacimiento">
+        <div className="col-sm-6">
+          <input
+            className="FormRegister__email"
+            ref={props.handlers.handlerEmail}
+            type="email"
+            placeholder={props.copy.email}
+            defaultValue={props.email}
+          />
+        </div>
+        <div className="col-sm-6">
+          <input
+            className="FormRegister__email_conf"
+            ref={props.handlers.handlerEmailConfirmation}
+            type="email"
+            placeholder={props.copy.confirm}
+            defaultValue={props.email}
+          />
+        </div>
+        <div className="col-sm-6">
+          <input
+            className="FormRegister__fname"
+            ref={props.handlers.handlerFirstname}
+            type="text"
+            placeholder={props.copy.nombre}
+          />
+        </div>
+        <div className="col-sm-6">
+          <input
+            className="FormRegister__lname"
+            ref={props.handlers.handlerLastname}
+            type="text"
+            placeholder={props.copy.apellido}
+          />
+        </div>
+        <div className="col-sm-6">
           <select name="FormRegisterUI__day" ref={props.handlers.handlerDay}>
             <option value="-" selected>
               {props.copy.dia}
@@ -72,13 +80,16 @@ const FormRegisterUI = (props) => {
             {props.copy.birthtext}
           </div>
         </div>
-        <input
-          className="FormRegister__phone"
-          ref={props.handlers.handlerPhone}
-          type="text"
-          placeholder={props.copy.telefono}
-        />
-        <div>
+        <div className="col-sm-6">
+          <input
+            className="FormRegister__phone"
+            ref={props.handlers.handlerPhone}
+            type="text"
+            placeholder={props.copy.telefono}
+          />
+        </div>
+
+        <div className="col-sm-6">
           <select
             className="FormRegister__country"
             onChange={(event) => { props.filterCities(event.target.selectedIndex) }}
@@ -91,7 +102,8 @@ const FormRegisterUI = (props) => {
               return <option key={index} value={item.value}>{item.label}</option>
             })}
           </select>
-
+        </div>
+        <div className="col-sm-6">
           <select
             className="FormRegister__city"
             ref={props.handlers.handlerCity}
@@ -103,18 +115,21 @@ const FormRegisterUI = (props) => {
               return <option key={index} value={item.value}>{item.label}</option>
             })}
           </select>
-
         </div>
-        <div className="FormRegister__terms">
-          <input type="checkbox" ref={props.handlers.handlerTerms} />
-          <p>{props.copy.terminos}</p>
+        <div className="col-sm-12">
+          <div className="FormRegister__terms">
+            <input type="checkbox" ref={props.handlers.handlerTerms} />
+            <p>{props.copy.terminos}</p>
+          </div>
+          <div className="FormRegister__news">
+            <input type="checkbox" ref={props.handlers.handlerNews} />
+            <p>{props.copy.news}</p>
+          </div>
         </div>
-        <div className="FormRegister__news">
-          <input type="checkbox" ref={props.handlers.handlerNews} />
-          <p>{props.copy.news}</p>
+        <div className="col-sm-12">
+          {(props.error) && <p className="FormRegister__error">{props.error}</p>}
+          <input className="FormRegister__cta" type="submit" value={props.copy.siguiente} />
         </div>
-        {(props.error) && <p className="FormRegister__error">{props.error}</p>}
-        <input className="FormRegister__cta" type="submit" value={props.copy.siguiente} />
       </form>
     </div>
   )
