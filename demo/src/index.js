@@ -5,10 +5,6 @@ import FormRegister from '../../src'
 
 class Demo extends Component {
   
-  handleRegisterSuccess = (data) => {
-    console.log('handleRegisterSuccess', data)
-  }
-
   handleRegisterError = (data) => {
     console.log('handleRegisterError', data)
   }
@@ -24,7 +20,7 @@ class Demo extends Component {
       endPoint={`/user/register`}
       success = { this.handleRegisterSuccess }
       error = { this.handleRegisterError }
-      working = { this.handleWorking } 
+      working = { false } 
       />
     </div>
   }

@@ -103,6 +103,7 @@ class FormRegister extends Component{
                 email = { this.props.email }
                 error = { this.state.error }
                 handlers = { this.handlers }
+                working = { this.props.working }
             /> 
         )
     }
@@ -114,7 +115,7 @@ FormRegister.propTypes = {
     email : PropTypes.string,
     success : PropTypes.func.isRequired,
     error : PropTypes.func.isRequired,
-    working : PropTypes.func.isRequired,
+    working : PropTypes.bool,
 };
 
 FormRegister.defaultProps = {

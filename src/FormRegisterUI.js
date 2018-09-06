@@ -129,7 +129,7 @@ const FormRegisterUI = (props) => {
           </div>
           <div className="col-sm-12">
             {(props.error) && <p className="FormRegister__error">{props.error}</p>}
-            <input className="FormRegister__cta" type="submit" value={props.copy.siguiente} />
+            <input disabled={ props.working } className="FormRegister__cta" type="submit" value={props.copy.siguiente} />
           </div>
         </form>
       </div>
