@@ -5,6 +5,10 @@ import FormRegister from '../../src'
 
 class Demo extends Component {
   
+  handleRegisterSuccess= (data) => {
+    console.log('handleRegisterSuccess', data)
+  }
+  
   handleRegisterError = (data) => {
     console.log('handleRegisterError', data)
   }

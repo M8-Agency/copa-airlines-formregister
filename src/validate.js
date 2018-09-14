@@ -14,6 +14,7 @@ export default function (formData, copy) {
         phone: formData.phone.value,
         country: formData.country.value,
         city: formData.city.value,
+        uid: formData.uid.value,
         terms: formData.terms.checked,
         news: formData.news.checked,
     };
@@ -27,10 +28,12 @@ export default function (formData, copy) {
         phone: 'required|numeric',
         country: 'required',
         city: 'required',
+        uid: 'required',
         terms: 'accepted'
     }
 
     const attributes = {
+        uid : copy.attribute.uid,
         email : copy.attribute.email,
         emailConfirmation : copy.attribute.emailConfirmation,
         firstname : copy.attribute.firstname,

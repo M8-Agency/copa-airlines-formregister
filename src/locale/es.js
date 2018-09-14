@@ -2,7 +2,7 @@ import React from 'react';
 
 export default {
     un_solo_paso : 'Estás a un solo paso',
-    completa : <div>Completa tu registro y <strong>suma 10 puntos</strong></div>,
+    completa : <span>Completa tu registro y <strong>suma 10 puntos</strong></span>,
     email : 'Email',
     confirm : 'Confirmar Email',
     nombre : 'Nombre',
@@ -14,9 +14,10 @@ export default {
     telefono : 'Teléfono',
     pais : 'País',
     ciudad : 'Ciudad',
-    terminos : <div>Confirmo que tengo 18 años o más. <br/>He leído y acepto los términos y condiciones.</div>,
+    terminos : <span>Confirmo que tengo 18 años o más. <br/>He leído y acepto los términos y condiciones.</span>,
     news : 'Noticias',
     siguiente : 'SIGUIENTE',
+    uid : 'Número de identificación personal',
     error : {
         required: 'El campo de :attribute es requerido ',
         email: 'El campo de e-mail es requerido',
@@ -35,6 +36,7 @@ export default {
         phone : 'Teléfono',
         country : 'País',
         city : 'Ciudad',
-        terms : 'Términos'
+        terms : 'Términos',
+        uid: 'Número de identificación personal'
     }
 }
