@@ -2,8 +2,8 @@ import Validator from 'validatorjs'
 
 export default function (formData, copy) {
     const data = {
-        email: formData.email.value,
-        emailConfirmation: formData.emailConfirmation.value,
+        email: formData.email.value.toLowerCase(),
+        emailConfirmation: formData.emailConfirmation.value.toLowerCase(),
         firstname: formData.firstname.value,
         lastname: formData.lastname.value,
         birthday: new Date(
