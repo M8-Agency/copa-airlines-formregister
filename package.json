@@ -1,6 +1,6 @@
 {
   "name": "copa-airlines-formregister",
-  "version": "2.0.11",
+  "version": "2.1.11",
   "description": "copa-airlines-formregister React component",
   "main": "lib/index.js",
   "module": "es/index.js",

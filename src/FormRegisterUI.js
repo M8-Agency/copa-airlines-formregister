@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
 const getNumbers = (init, end) => {
   let options = [];
 
   for (
     let i = init;
-    (init <= end) ? i <= end : i >= end;
-    (init <= end) ? i++ : i--
+    init <= end ? i <= end : i >= end;
+    init <= end ? i++ : i--
   ) {
     options.push(
       <option key={i} value={i}>
@@ -16,13 +16,12 @@ const getNumbers = (init, end) => {
   }
 
   return options;
-}
+};
 
-const FormRegisterUI = (props) => {
-
+const FormRegisterUI = props => {
   return (
     <div className="container FormRegister">
-      <div className='row'>
+      <div className="row">
         <form onSubmit={props.validateForm} noValidate>
           <div className="col-sm-6">
             <input
@@ -59,19 +58,28 @@ const FormRegisterUI = (props) => {
             />
           </div>
           <div className="col-sm-6">
-            <select className="FormRegister__day" ref={props.handlers.handlerDay}>
+            <select
+              className="FormRegister__day"
+              ref={props.handlers.handlerDay}
+            >
               <option value="-" defaultValue>
                 {props.copy.dia}
               </option>
               {getNumbers(1, 31)}
             </select>
-            <select className="FormRegister__month" ref={props.handlers.handlerMonth}>
+            <select
+              className="FormRegister__month"
+              ref={props.handlers.handlerMonth}
+            >
               <option value="-" defaultValue>
                 {props.copy.mes}
               </option>
               {getNumbers(1, 12)}
             </select>
-            <select className="FormRegister__year" ref={props.handlers.handlerYear}>
+            <select
+              className="FormRegister__year"
+              ref={props.handlers.handlerYear}
+            >
               <option value="-" defaultValue>
                 {props.copy.ano}
               </option>
@@ -93,14 +101,20 @@ const FormRegisterUI = (props) => {
           <div className="col-sm-6">
             <select
               className="FormRegister__country"
-              onChange={(event) => { props.filterCities(event.target.selectedIndex) }}
+              onChange={event => {
+                props.filterCities(event.target.selectedIndex);
+              }}
               ref={props.handlers.handlerCountry}
             >
               <option value="" defaultValue>
                 {props.copy.pais}
               </option>
               {props.countries.map((item, index) => {
-                return <option key={index} value={item.value}>{item.label}</option>
+                return (
+                  <option key={index} value={item.value}>
+                    {item.label}
+                  </option>
+                );
               })}
             </select>
           </div>
@@ -113,11 +127,15 @@ const FormRegisterUI = (props) => {
                 {props.copy.ciudad}
               </option>
               {props.cities.map((item, index) => {
-                return <option key={index} value={item.value}>{item.label}</option>
+                return (
+                  <option key={index} value={item.value}>
+                    {item.label}
+                  </option>
+                );
               })}
             </select>
           </div>
-          
+
           <div className="col-sm-6">
             <input
               className="FormRegister__uid"
@@ -132,19 +150,25 @@ const FormRegisterUI = (props) => {
               <input type="checkbox" ref={props.handlers.handlerTerms} />
               <p>{props.copy.terminos}</p>
             </div>
-            <div className="FormRegister__news">
-              <input type="checkbox" ref={props.handlers.handlerNews} />
-              <p>{props.copy.news}</p>
-            </div>
+            {props.news && (
+              <div className="FormRegister__news">
+                <input type="checkbox" ref={props.handlers.handlerNews} />
+                <p>{props.copy.news}</p>
+              </div>
+            )}
           </div>
           <div className="col-sm-12">
-            {(props.error) && <p className="FormRegister__error">{props.error}</p>}
-            <button disabled={props.working} className="FormRegister__cta">{props.copy.siguiente}</button>
+            {props.error && (
+              <p className="FormRegister__error">{props.error}</p>
+            )}
+            <button disabled={props.working} className="FormRegister__cta">
+              {props.copy.siguiente}
+            </button>
           </div>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default FormRegisterUI;
