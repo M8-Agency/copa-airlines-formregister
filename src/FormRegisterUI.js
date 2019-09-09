@@ -157,6 +157,7 @@ const FormRegisterUI = props => {
               </div>
             )}
           </div>
+
           <div className="col-sm-12">
             {props.error && (
               <p className="FormRegister__error">{props.error}</p>
