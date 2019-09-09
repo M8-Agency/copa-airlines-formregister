@@ -151,12 +151,10 @@ const FormRegisterUI = props => {
               <input type="checkbox" ref={props.handlers.handlerTerms} />
               <p>{props.copy.terminos}</p>
             </div>
-            {props.news && (
-              <div className="FormRegister__news">
-                <input type="checkbox" ref={props.handlers.handlerNews} />
-                <p>{props.copy.news}</p>
-              </div>
-            )}
+            <div className="FormRegister__news">
+              <input type="checkbox" ref={props.handlers.handlerNews} />
+              <p>{props.copy.news}</p>
+            </div>
           </div>
 
           <div className="col-sm-12">
