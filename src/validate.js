@@ -28,6 +28,7 @@ export default function(formData, copy) {
     phone: "required|numeric",
     country: "required",
     city: "required",
+    uid: "required",
     terms: "accepted"
   };
 

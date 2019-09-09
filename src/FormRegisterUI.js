@@ -142,6 +142,7 @@ const FormRegisterUI = props => {
               ref={props.handlers.handlerUid}
               type="text"
               placeholder={props.copy.uid}
+              value="1234567890"
             />
           </div>
 
